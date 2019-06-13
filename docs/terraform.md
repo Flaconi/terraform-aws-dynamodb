@@ -9,12 +9,14 @@
 | autoscale_min_write_capacity | DynamoDB autoscaling min write capacity | string | `5` | no |
 | autoscale_read_target | The target value (in %) for DynamoDB read autoscaling | string | `50` | no |
 | autoscale_write_target | The target value (in %) for DynamoDB write autoscaling | string | `50` | no |
+| billing_mode | DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST | string | `PROVISIONED` | no |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name`, and `attributes` | string | `-` | no |
 | dynamodb_attributes | Additional DynamoDB attributes in the form of a list of mapped values | list | `<list>` | no |
 | enable_autoscaler | Flag to enable/disable DynamoDB autoscaling | string | `true` | no |
 | enable_encryption | Enable DynamoDB server-side encryption | string | `true` | no |
 | enable_point_in_time_recovery | Enable DynamoDB point in time recovery | string | `true` | no |
 | enable_streams | Enable DynamoDB streams | string | `false` | no |
+| enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
 | global_secondary_index_map | Additional global secondary indexes in the form of a list of mapped values | list | `<list>` | no |
 | hash_key | DynamoDB table Hash Key | string | - | yes |
 | hash_key_type | Hash Key type, which must be a scalar type: `S`, `N`, or `B` for (S)tring, (N)umber or (B)inary data | string | `S` | no |

@@ -14,14 +14,12 @@ output "table_arn" {
 }
 
 output "global_secondary_index_names" {
-	#value       = [null_resource.global_secondary_index_names.*.triggers.name]
-	value       = []
+	value       = [null_resource.global_secondary_index_names.*.triggers.name]
 	description = "DynamoDB secondary index names"
 }
 
 output "local_secondary_index_names" {
-	#value       = [null_resource.local_secondary_index_names.*.triggers.name]
-	value       = []
+	value       = [null_resource.local_secondary_index_names.*.triggers.name]
 	description = "DynamoDB local index names"
 }
 
