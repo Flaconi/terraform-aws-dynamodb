@@ -28,7 +28,7 @@ locals {
 }
 
 resource "null_resource" "global_secondary_index_names" {
-  count = (var.enabled == "true" ? 1 : 0 ) * length(var.global_secondary_index_map)
+  count = (var.enabled == "true" ? 1 : 0) * length(var.global_secondary_index_map)
 
   # Convert the multi-item `global_secondary_index_map` into a simple `map` with just one item `name` since `triggers` does not support `lists` in `maps` (which are used in `non_key_attributes`)
   # See `examples/complete`
@@ -37,7 +37,7 @@ resource "null_resource" "global_secondary_index_names" {
 }
 
 resource "null_resource" "local_secondary_index_names" {
-  count = (var.enabled == "true" ? 1 : 0 ) * length(var.local_secondary_index_map)
+  count = (var.enabled == "true" ? 1 : 0) * length(var.local_secondary_index_map)
 
   # Convert the multi-item `local_secondary_index_map` into a simple `map` with just one item `name` since `triggers` does not support `lists` in `maps` (which are used in `non_key_attributes`)
   # See `examples/complete`
@@ -111,21 +111,21 @@ resource "aws_dynamodb_table" "default" {
   tags = module.dynamodb_label.tags
 }
 
-	module "dynamodb_autoscaler" {
-		source                       = "git::https://github.com/Flaconi/terraform-aws-dynamodb-autoscaler.git?ref=v0.12.1"
-		enabled                      = var.enabled && var.enable_autoscaler
-		namespace                    = var.namespace
-		stage                        = var.stage
-		name                         = var.name
-		delimiter                    = var.delimiter
-		attributes                   = var.attributes
-		dynamodb_table_name          = element(concat(aws_dynamodb_table.default.*.id, [""]), 0)
-		dynamodb_table_arn           = element(concat(aws_dynamodb_table.default.*.arn, [""]), 0)
-		dynamodb_indexes             = [null_resource.global_secondary_index_names.*.triggers.name]
-		autoscale_write_target       = var.autoscale_write_target
-		autoscale_read_target        = var.autoscale_read_target
-		autoscale_min_read_capacity  = var.autoscale_min_read_capacity
-		autoscale_max_read_capacity  = var.autoscale_max_read_capacity
-		autoscale_min_write_capacity = var.autoscale_min_write_capacity
-		autoscale_max_write_capacity = var.autoscale_max_write_capacity
-	}
+module "dynamodb_autoscaler" {
+  source                       = "git::https://github.com/Flaconi/terraform-aws-dynamodb-autoscaler.git?ref=v0.12.1"
+  enabled                      = var.enabled && var.enable_autoscaler
+  namespace                    = var.namespace
+  stage                        = var.stage
+  name                         = var.name
+  delimiter                    = var.delimiter
+  attributes                   = var.attributes
+  dynamodb_table_name          = element(concat(aws_dynamodb_table.default.*.id, [""]), 0)
+  dynamodb_table_arn           = element(concat(aws_dynamodb_table.default.*.arn, [""]), 0)
+  dynamodb_indexes             = [null_resource.global_secondary_index_names.*.triggers.name]
+  autoscale_write_target       = var.autoscale_write_target
+  autoscale_read_target        = var.autoscale_read_target
+  autoscale_min_read_capacity  = var.autoscale_min_read_capacity
+  autoscale_max_read_capacity  = var.autoscale_max_read_capacity
+  autoscale_min_write_capacity = var.autoscale_min_write_capacity
+  autoscale_max_write_capacity = var.autoscale_max_write_capacity
+}
